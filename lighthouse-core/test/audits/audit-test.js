@@ -59,7 +59,8 @@ describe('Audit', () => {
     it('throws if an audit returns a score that\'s not a number', () => {
       const re = /Invalid score/;
       assert.throws(_ => Audit._normalizeAuditScore(B, {rawValue: true, score: NaN}), re);
-      assert.throws(_ => Audit._normalizeAuditScore(B, {rawValue: true, score: '50'}), /is > 1/);
+      assert.throws(_ => Audit._normalizeAuditScore(B, {rawValue: true, score: 'string'}), re);
+      assert.throws(_ => Audit._normalizeAuditScore(B, {rawValue: true, score: 50}), /is > 1/);
     });
   });
 
