@@ -134,7 +134,8 @@ class Audit {
       throw new Error('generateAuditResult requires a rawValue');
     }
 
-    let {score, scoreDisplayMode} = Audit._normalizeAuditScore(audit,result);
+    // eslint-disable-next-line prefer-const
+    let {score, scoreDisplayMode} = Audit._normalizeAuditScore(audit, result);
 
     // If the audit was determined to not apply to the page, we'll reset it as informative only
     let informative = audit.meta.informative;

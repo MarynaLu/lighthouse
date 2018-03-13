@@ -22,7 +22,7 @@ function AuditResult() {}
  */
 AuditResult.prototype.rawValue;
 
-/** @type {(boolean|number|undefined)} */
+/** @type {(number|undefined)} */
 AuditResult.prototype.score;
 
 /** @type {(string|undefined)} */
@@ -48,7 +48,7 @@ AuditResult.prototype.details;
  */
 function AuditFullResult() {}
 
-/** @type {(boolean|number)} */
+/** @type {(number)} */
 AuditFullResult.prototype.score;
 
 /** @type {string} */

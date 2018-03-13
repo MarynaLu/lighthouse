@@ -22,8 +22,8 @@ class ReportScoring {
   static arithmeticMean(items) {
     const results = items.reduce(
       (result, item) => {
-        const score = Number(item.score) || 0;
-        const weight = Number(item.weight) || 0;
+        const score = item.score || 0;
+        const weight = item.weight || 0;
         return {
           weight: result.weight + weight,
           sum: result.sum + score * weight,
