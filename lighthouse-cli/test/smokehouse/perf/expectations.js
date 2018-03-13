@@ -14,7 +14,7 @@ module.exports = [
     url: 'http://localhost:10200/preload.html',
     audits: {
       'speed-index-metric': {
-        score: '>=.80',
+        score: '>=0.80',
         extendedInfo: {
           value: {
             timings: {},
@@ -24,13 +24,13 @@ module.exports = [
         },
       },
       'first-meaningful-paint': {
-        score: '>=.90',
+        score: '>=0.90',
       },
       'first-interactive': {
-        score: '>=.90',
+        score: '>=0.90',
       },
       'consistently-interactive': {
-        score: '>=.90',
+        score: '>=0.90',
       },
       'time-to-first-byte': {
         // Can be flaky, so test float rawValue instead of boolean score
@@ -44,7 +44,7 @@ module.exports = [
         },
       },
       'uses-rel-preload': {
-        score: '<1.00',
+        score: '<1',
         rawValue: '>500',
         details: {
           items: {

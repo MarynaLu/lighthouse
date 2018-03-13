@@ -120,10 +120,10 @@ describe('CategoryRenderer', () => {
       description: 'Audit',
       helpText: 'Learn more',
       debugString: 'It may not have worked!',
-      score: 1.00,
+      score: 1,
     };
-    const audit = {result: auditResult, score: 1.00};
-    const category = {name: 'Fake', description: '', score: 1.00, audits: [audit]};
+    const audit = {result: auditResult, score: 1};
+    const category = {name: 'Fake', description: '', score: 1, audits: [audit]};
     const categoryDOM = renderer.render(category, sampleResults.reportGroups);
     assert.ok(categoryDOM.querySelector(
         '.lh-category > .lh-audit-group:not(.lh-passed-audits) > .lh-audit'),
@@ -188,7 +188,7 @@ describe('CategoryRenderer', () => {
     it.skip('renders the failed audits grouped by group', () => {
       const categoryDOM = renderer.render(category, sampleResults.reportGroups);
       const failedAudits = category.audits.filter(audit => {
-        return audit.result.score !== 1.00 && !audit.result.notApplicable;
+        return audit.result.score !== 1 && !audit.result.notApplicable;
       });
       const failedAuditTags = new Set(failedAudits.map(audit => audit.group));
 

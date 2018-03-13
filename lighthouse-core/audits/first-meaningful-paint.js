@@ -95,8 +95,8 @@ class FirstMeaningfulPaint extends Audit {
     });
 
     // Use the CDF of a log-normal distribution for scoring.
-    //   < 1100ms: score≈1.00
-    //   4000ms: score=0.50
+    //   < 1100ms: score≈1
+    //   4000ms: score=0.5
     //   >= 14000ms: score≈0
     const firstMeaningfulPaint = traceOfTab.timings.firstMeaningfulPaint;
     const score = Audit.computeLogNormalScore(

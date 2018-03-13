@@ -127,7 +127,7 @@ module.exports = [
         score: 0,
       },
       'script-blocking-first-paint': {
-        score: '<1.00',
+        score: '<1',
         extendedInfo: {
           value: {
             results: {
@@ -294,7 +294,7 @@ module.exports = [
         score: 1,
       },
       'link-blocking-first-paint': {
-        score: 1.00,
+        score: 1,
       },
       'no-document-write': {
         score: 1,
@@ -306,7 +306,7 @@ module.exports = [
         score: 1,
       },
       'script-blocking-first-paint': {
-        score: 1.00,
+        score: 1,
       },
       'uses-passive-event-listeners': {
         score: 1,

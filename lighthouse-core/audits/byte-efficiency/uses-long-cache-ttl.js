@@ -206,8 +206,8 @@ class CacheHeaders extends Audit {
       );
 
       // Use the CDF of a log-normal distribution for scoring.
-      //   <= 4KB: score≈1.00
-      //   768KB: score=0.50
+      //   <= 4KB: score≈1
+      //   768KB: score=0.5
       //   >= 4600KB: score≈0.05
       const score = Audit.computeLogNormalScore(
         totalWastedBytes / 1024,

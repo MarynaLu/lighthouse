@@ -16,7 +16,7 @@ module.exports = [
     url: 'http://localhost:10200/redirects-final.html',
     audits: {
       'redirects': {
-        score: '<1.00',
+        score: '<1',
         rawValue: '>=500',
         details: {
           items: {

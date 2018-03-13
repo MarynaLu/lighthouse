@@ -40,7 +40,7 @@ describe('Mixed Content audit', () => {
       getArtifacts('https://example.org', defaultRecords, upgradeRecords)
     ).then(result => {
       assert.strictEqual(result.rawValue, true);
-      assert.strictEqual(result.score, 1.00);
+      assert.strictEqual(result.score, 1);
     });
   });
 
