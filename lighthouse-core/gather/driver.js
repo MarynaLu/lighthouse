@@ -715,14 +715,15 @@ class Driver {
   /**
    * Return the body of the response with the given ID.
    * @param {string} requestId
+   * @param {?number} timeout
    * @return {string}
    */
-  getRequestContent(requestId) {
+  getRequestContent(requestId, timeout = 1000) {
     return new Promise((resolve, reject) => {
       // If this takes more than 1s, reject the Promise.
       // Why? Encoding issues can lead to hanging getResponseBody calls: https://github.com/GoogleChrome/lighthouse/pull/4718
       const err = new LHError(LHError.errors.REQUEST_CONTENT_TIMEOUT);
-      const asyncTimeout = setTimeout((_ => reject(err)), 1000);
+      const asyncTimeout = setTimeout((_ => reject(err)), timeout);
 
       this.sendCommand('Network.getResponseBody', {requestId}).then(result => {
         clearTimeout(asyncTimeout);

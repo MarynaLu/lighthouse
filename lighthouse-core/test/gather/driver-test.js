@@ -17,6 +17,7 @@ const connection = new Connection();
 const driverStub = new Driver(connection);
 
 const redirectDevtoolsLog = require('../fixtures/wikipedia-redirect.devtoolslog.json');
+const MAX_WAIT_FOR_PROTOCOL = 20;
 
 function createOnceStub(events) {
   return (eventName, cb) => {
@@ -76,7 +77,7 @@ connection.sendCommand = function(command, params) {
     case 'Page.createIsolatedWorld':
       return Promise.resolve({executionContextId: 1});
     case 'Network.getResponseBody':
-      return new Promise(res => setTimeout(res, 1100));
+      return new Promise(res => setTimeout(res, MAX_WAIT_FOR_PROTOCOL + 20));
     case 'Page.enable':
     case 'Tracing.start':
     case 'ServiceWorker.enable':
@@ -141,7 +142,7 @@ describe('Browser Driver', () => {
   });
 
   it('throws if getRequestContent takes too long', () => {
-    return driverStub.getRequestContent(0).then(_ => {
+    return driverStub.getRequestContent(0, MAX_WAIT_FOR_PROTOCOL).then(_ => {
       assert.ok(false, 'long-running getRequestContent supposed to reject');
     }).catch(e => {
       assert.equal(e.code, 'REQUEST_CONTENT_TIMEOUT');
