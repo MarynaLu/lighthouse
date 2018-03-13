@@ -141,11 +141,11 @@ describe('Browser Driver', () => {
   });
 
   it('throws if getRequestContent takes too long', () => {
-    return driverStub.getRequestContent(0).then(value => {
+    return driverStub.getRequestContent(0).then(_ => {
       assert.ok(false, 'long-running getRequestContent supposed to reject');
     }).catch(e => {
       assert.equal(e.code, 'REQUEST_CONTENT_TIMEOUT');
-    })
+    });
   });
 
   it('evaluates an expression', () => {
