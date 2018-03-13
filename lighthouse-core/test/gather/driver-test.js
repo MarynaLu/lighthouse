@@ -75,6 +75,8 @@ connection.sendCommand = function(command, params) {
       return Promise.resolve({frameTree: {frame: {id: 1}}});
     case 'Page.createIsolatedWorld':
       return Promise.resolve({executionContextId: 1});
+    case 'Network.getResponseBody':
+      return new Promise(res => setTimeout(res, 1100));
     case 'Page.enable':
     case 'Tracing.start':
     case 'ServiceWorker.enable':
@@ -136,6 +138,14 @@ describe('Browser Driver', () => {
     return driverStub.getObjectProperty('test', 'novalue').then(value => {
       assert.deepEqual(value, null);
     });
+  });
+
+  it('throws if getRequestContent takes too long', () => {
+    return driverStub.getRequestContent(0).then(value => {
+      assert.ok(false, 'long-running getRequestContent supposed to reject');
+    }).catch(e => {
+      assert.equal(e.code, 'REQUEST_CONTENT_TIMEOUT');
+    })
   });
 
   it('evaluates an expression', () => {

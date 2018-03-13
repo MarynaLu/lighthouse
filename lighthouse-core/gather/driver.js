@@ -9,6 +9,7 @@
 const NetworkRecorder = require('../lib/network-recorder');
 const emulation = require('../lib/emulation');
 const Element = require('../lib/element');
+const LHError = require('../lib/errors');
 const EventEmitter = require('events').EventEmitter;
 const URL = require('../lib/url-shim');
 const TraceParser = require('../lib/traces/trace-parser');
@@ -718,9 +719,9 @@ class Driver {
    */
   getRequestContent(requestId) {
     return new Promise((resolve, reject) => {
-      // If this takes more than 2s, reject the Promise.
-      const err = new Error('Fetching resource content has exceeded the allotted time of 2s');
-      const asyncTimeout = setTimeout((_ => reject(err)), 2000);
+      // If this takes more than 1s, reject the Promise.
+      const err = new LHError(LHError.errors.REQUEST_CONTENT_TIMEOUT);
+      const asyncTimeout = setTimeout((_ => reject(err)), 1000);
 
       this.sendCommand('Network.getResponseBody', {requestId}).then(result => {
         clearTimeout(asyncTimeout);
