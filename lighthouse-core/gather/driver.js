@@ -715,7 +715,7 @@ class Driver {
   /**
    * Return the body of the response with the given ID.
    * @param {string} requestId
-   * @param {?number} timeout
+   * @param {number|undefined} timeout
    * @return {string}
    */
   getRequestContent(requestId, timeout = 1000) {
