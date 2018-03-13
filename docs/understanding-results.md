@@ -49,14 +49,14 @@ An object containing the results of the audits, keyed by their name.
 | Name | Type | Description |
 | -- | -- | -- |
 | name  | `string` | The string identifier of the audit in kebab case.  |
-| description | `string` | The brief description of the audit. The text can change depending on if the audit passed or failed. |
+| description | `string` | The brief description of the audit. The text can change depending on if the audit passed or failed. It may contain markdown code. |
 | helpText | `string` | A more detailed description that describes why the audit is important and links to Lighthouse documentation on the audit, markdown links supported. |
 | debugString | <code>string&#124;undefined</code> | A string indicating some additional information to the user explaining an unusual circumstance or reason for failure. |
 | error | `boolean` | Set to true if there was an an exception thrown within the audit. The error message will be in `debugString`.
 | rawValue | <code>boolean&#124;number</code> | The unscored value determined by the audit. Typically this will match the score if there's no additional information to impart. For performance audits, this value is typically a number indicating the metric value. |
 | displayValue | `string` | The string to display in the report alongside audit results. If empty, nothing additional is shown. This is typically used to explain additional information such as the number and nature of failing items. |
 | score | <code>number</code> | The scored value determined by the audit as a number `0-1`, representing displayed scores of 0-100. |
-| scoreDisplayMode | <code>"binary"&#124;"numeric"</code> | A string identifying how granular the score is meant to be indicating, i.e. is the audit pass/fail (score of 1 or 0), or are there shades of gray (scores between 0-1 inclusive). |
+| scoreDisplayMode | <code>"binary"&#124;"numeric"</code> | A string identifying how the score should be interpreted i.e. is the audit pass/fail (score of 1 or 0), or are there shades of gray (scores between 0-1 inclusive). |
 | details | `Object` | Extra information found by the audit necessary for display. The structure of this object varies from audit to audit. The structure of this object is somewhat stable between minor version bumps as this object is used to render the HTML report.
 | extendedInfo | `Object` | Extra information found by the audit. The structure of this object varies from audit to audit and is generally for programmatic consumption and debugging, though there is typically overlap with `details`. *WARNING: The structure of this object is not stable and cannot be trusted to follow semver* |
 | manual | `boolean` | Indicator used for display that the audit does not have results and is a placeholder for the user to conduct manual testing. |

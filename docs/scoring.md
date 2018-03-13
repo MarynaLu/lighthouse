@@ -36,7 +36,7 @@ The metric results are not weighted equally. Currently the weights are:
 * 1X - perceptual speed index
 * 1X - estimated input latency
 
-These weights were determined based on heuristics, and the Lighthouse team is working on formalizing this approach through more field data.
+These weights are heuristics, and the Lighthouse team is working on formalizing the weighting system through more field data.
 
 ### How do performance metrics get scored?
 Once Lighthouse is done gathering the raw performance metrics for your website (metrics reported in miliseconds), it converts them into a score by mapping the raw performance number to a number between 0-100 by looking where your raw performance metric falls on the Lighthouse scoring distribution. The Lighthouse scoring distribution is a log normal distribution that is derived from the performance metrics of real website performance data (see sample distribution [here](https://www.desmos.com/calculator/zrjq6v1ihi)).

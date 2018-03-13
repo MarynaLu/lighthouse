@@ -61,7 +61,7 @@ class Audit {
     let score = distribution.computeComplementaryPercentile(measuredValue);
     score = Math.min(1, score);
     score = Math.max(0, score);
-    return Math.round(score * 100) / 100;
+    return clampTo2Decimals(score);
   }
 
   /**
@@ -104,26 +104,15 @@ class Audit {
   /**
    * @param {!Audit} audit
    * @param {!AuditResult} result
-   * @return {{score: number, scoreDisplayMode: string, informative: boolean, rawValue: boolean}}
+   * @return {{score: number, scoreDisplayMode: string}}
    */
   static _normalizeAuditScore(audit, result) {
-    let score = typeof result.score === 'undefined' ? result.rawValue : result.score;
-    let informative;
-    let rawValue;
-
-    if (typeof score === 'boolean' || score === null) {
-      score = score ? 1 : 0;
-    }
-
-    // If the audit was determined to not apply to the page, we'll reset it as informative only
-    if (result.notApplicable) {
-      score = 1;
-      rawValue = true;
-      informative = true;
-    }
+    // Cast true/false to 1/0
+    let score = result.score === undefined ? Number(result.rawValue) : result.score;
 
     if (!Number.isFinite(score)) throw new Error(`Invalid score: ${score}`);
     if (score > 1) throw new Error(`Audit score for ${audit.meta.name} is > 1`);
+    if (score < 0) throw new Error(`Audit score for ${audit.meta.name} is < 0`);
 
     score = clampTo2Decimals(score);
 
@@ -132,8 +121,6 @@ class Audit {
     return {
       score,
       scoreDisplayMode,
-      informative,
-      rawValue,
     };
   }
 
@@ -147,8 +134,15 @@ class Audit {
       throw new Error('generateAuditResult requires a rawValue');
     }
 
-    const {score, scoreDisplayMode, informative, rawValue} = Audit._normalizeAuditScore(audit,
-        result);
+    let {score, scoreDisplayMode} = Audit._normalizeAuditScore(audit,result);
+
+    // If the audit was determined to not apply to the page, we'll reset it as informative only
+    let informative = audit.meta.informative;
+    if (result.notApplicable) {
+      score = 1;
+      informative = true;
+      result.rawValue = true;
+    }
 
     const displayValue = result.displayValue ? `${result.displayValue}` : '';
 
@@ -162,12 +156,12 @@ class Audit {
     return {
       score,
       displayValue,
-      rawValue: rawValue || result.rawValue,
+      rawValue: result.rawValue,
       error: result.error,
       debugString: result.debugString,
       extendedInfo: result.extendedInfo,
       scoreDisplayMode,
-      informative: audit.meta.informative || informative,
+      informative,
       manual: audit.meta.manual,
       notApplicable: result.notApplicable,
       name: audit.meta.name,
