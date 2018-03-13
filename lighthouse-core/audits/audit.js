@@ -113,8 +113,6 @@ class Audit {
 
     if (typeof score === 'boolean' || score === null) {
       score = score ? 1 : 0;
-    } else {
-      score = clampTo2Decimals(score);
     }
 
     // If the audit was determined to not apply to the page, we'll reset it as informative only
@@ -126,6 +124,8 @@ class Audit {
 
     if (!Number.isFinite(score)) throw new Error(`Invalid score: ${score}`);
     if (score > 1) throw new Error(`Audit score for ${audit.meta.name} is > 1`);
+
+    score = clampTo2Decimals(score);
 
     const scoreDisplayMode = audit.meta.scoreDisplayMode || Audit.SCORING_MODES.BINARY;
 
